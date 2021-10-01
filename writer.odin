@@ -413,7 +413,7 @@ write_struct_or_union :: proc(fg: ^File_Generator, w: io.Writer, obj: json.Objec
 	for field_obj in struct_fields {
 		field := field_obj.(json.Object);
 		field_name := field["Name"].(string);
-		field_name = or_else(odin_keywords[field_name], field_name);
+		field_name = odin_keywords[field_name] or_else field_name;
 		if !is_field_anon(field) {
 			max_field_len = max(max_field_len, len(field_name));
 		}
@@ -422,7 +422,7 @@ write_struct_or_union :: proc(fg: ^File_Generator, w: io.Writer, obj: json.Objec
 	for field_obj in struct_fields {
 		field := field_obj.(json.Object);
 		field_name := field["Name"].(string);
-		field_name = or_else(odin_keywords[field_name], field_name);
+		field_name = odin_keywords[field_name] or_else field_name;
 
 		field_type := field["Type"].(json.Object);
 		field_attrs, _ := field["Attrs"].(json.Array);
@@ -551,7 +551,7 @@ write_com :: proc(fg: ^File_Generator, w: io.Writer, obj: json.Object, name: str
 			param_attrs, _ := param_obj["Attrs"].(json.Array);
 			assert(param_name != "");
 
-			param_name = or_else(odin_keywords[param_name], param_name);
+			param_name = odin_keywords[param_name] or_else param_name;
 
 			fmt.wprintf(w, ", %s: ", param_name);
 			field_options := parse_field_options(param_attrs);
@@ -770,7 +770,7 @@ write_type :: proc(fg: ^File_Generator, w: io.Writer, type: json.Value, original
 			if i > 0 {
 				io.write_string(w, ", ");
 			}
-			param_name = or_else(odin_keywords[param_name], param_name);
+			param_name = odin_keywords[param_name] or_else param_name;
 
 			fmt.wprintf(w, "%s: ", param_name);
 			field_options := parse_field_options(param_attrs);
@@ -819,7 +819,7 @@ write_proc :: proc(fg: ^File_Generator, w: io.Writer, procedure: json.Value) {
 		if i > 0 {
 			io.write_string(w, ", ");
 		}
-		param_name = or_else(odin_keywords[param_name], param_name);
+		param_name = odin_keywords[param_name] or_else param_name;
 
 		fmt.wprintf(w, "%s: ", param_name);
 		field_options := parse_field_options(param_attrs);
