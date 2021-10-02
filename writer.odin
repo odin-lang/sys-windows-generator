@@ -207,7 +207,7 @@ write_type_ref :: proc(fg: ^File_Generator, w: io.Writer, obj: json.Object, fiel
 		case "UInt64":
 			io.write_string(w, "u64");
 		case "Char":
-			io.write_string(w, "byte");
+			io.write_string(w, "u16");
 		case "Single":
 			io.write_string(w, "f32");
 		case "Double":
@@ -333,6 +333,10 @@ write_type_ref :: proc(fg: ^File_Generator, w: io.Writer, obj: json.Object, fiel
 		child := obj["Child"].(json.Object);
 		if name, _ := child["Name"].(string); name == "Void" {
 			io.write_string(w, "rawptr");
+		} else if name == "Char" {
+			io.write_string(w, "[^]u16");
+		} else if name == "Byte" {
+			io.write_string(w, "[^]u8");
 		} else {
 			child_options := field_options - {.Optional, .Const};
 			write_type_ref(fg, w, child, child_options, .Child);
