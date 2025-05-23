@@ -1,3 +1,5 @@
+THIS REPOSITORY IS ARCHIVED
+
 # sys-windows-generator
 package sys/windows Generator (WIP)
 
@@ -9,6 +11,3 @@ Currently every type is added to this base package and it is huge which makes th
 
 Goal-wise importing a basic package should take a few dozen milliseconds MAXIMUM (ideally less) but this
 is not currently possible.
-
-
-HELP IS WANTED!
